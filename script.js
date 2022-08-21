@@ -3,10 +3,12 @@ const log = console.log;
 const modal = document.querySelector('#modal');
 const addBookModal = document.querySelector('#modalBtn');
 const closeModalBtn = document.querySelector('.closeBtn');
+const submitBook = document.querySelector('button[type=submit]');
 
-/*
+
 addBookModal.addEventListener('click', openModal);
 closeModalBtn.addEventListener('click', closeModal);
+/*submitBook.addEventListener('click', closeModal);*/
 window.addEventListener('click', clickOutside)
 
 function openModal(){
@@ -24,7 +26,6 @@ function clickOutside(e){
     }
 }
 
-*/
 
 
 
