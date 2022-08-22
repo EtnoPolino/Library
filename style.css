@@ -86,6 +86,10 @@ input[type=number]{
     border-radius: 5px;
 }
 
+input:invalid{
+    box-shadow: none;
+}
+
 /*-------------- set main -----------------*/
 main > section{
     margin: auto;
@@ -128,4 +132,16 @@ main > section{
 .remove:hover{
     background-color: darkgrey;
     cursor: pointer;
+}
+
+.read{
+    background-color: lightgreen;
+    color: white;
+    font-weight: 700;
+}
+
+.notread{
+    color: white;
+    font-weight: 700;
+    background-color: red;
 }
