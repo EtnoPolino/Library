@@ -119,13 +119,13 @@ main > section{
     cursor: pointer;
 }
 
-.note > button:last-child{
+.remove{
     color: white;
     font-weight: 700;
     background-color: coral;
 }
 
-.note > button:last-child:hover{
+.remove:hover{
     background-color: darkgrey;
     cursor: pointer;
 }
