@@ -10,18 +10,20 @@ const inputAuthor = document.querySelector('#author');
 const inputPages = document.querySelector('#pages');
 const checkbox = document.querySelector('input[type=checkbox]');
 
+let myLibrary = [];
+let newBook;
 
-
-
-/* ---------------------------------------------------------------------------------------------------------------
+/*---------------------------------------------------------------------------------------------------------------
                                                 AddEvent listener
------------------------------------------------------------------------------------------------------------------- */
+-----------------------------------------------------------------------------------------------------------------*/
 addBookModal.addEventListener('click', openModal);
 closeModalBtn.addEventListener('click', closeModal);
 formSubmit.addEventListener('submit', addBook);
 window.addEventListener('click', clickOutside);
 
-
+/*---------------------------------------------------------------------------------------------------------------
+                                                functions
+-----------------------------------------------------------------------------------------------------------------*/
 
 function openModal(){
     modal.style.display = 'block';
@@ -39,7 +41,7 @@ function clickOutside(e){
 }
 
 function createBook(book){
-    const lastElem = book[book.length - 1]; /* get the last elem of the array */
+    const lastElem = book[book.length - 1];
      
     
     const bookInfo = document.createElement('div');
@@ -48,14 +50,10 @@ function createBook(book){
     const p_1 = document.createElement('p');
     const p_2 = document.createElement('p');
     const p_3 = document.createElement('p');
-    let count = bookscontainer.children.length;    /* everytime we create a book it count  */
-
-    
 
     readOrNot.addEventListener('click', toogleRead);
-    deleteNote.addEventListener('click', deleteBook);
+    deleteNote.addEventListener('click', deleteBookFromlibrary);
     
-    bookInfo.setAttribute('data-index', `${count}`);
     p_1.innerText = `Title : ${lastElem.title}`;
     p_2.innerText = `Author : ${lastElem.author}`;
     p_3.innerText = `Pages : ${lastElem.pages}`;
@@ -78,27 +76,18 @@ function createBook(book){
     bookInfo.appendChild(deleteNote);
     bookscontainer.appendChild(bookInfo);
 
-    function deleteBook(){
-        const bookTitle = this.parentNode.firstChild.innerText; 
-        
-        myLibrary = myLibrary.filter((book) => {
-            const test = `Title : ${book.title}`;
-            test !== bookTitle;
-        });
-
-        log(myLibrary);
-      /*  bookInfo.parentNode.removeChild(bookInfo); */
+    function deleteBookFromlibrary(){
+        bookInfo.parentNode.removeChild(bookInfo);
+        myLibrary = myLibrary.filter((b) => b.title !== `${lastElem.title}`);
     }
 
    closeModal();
    formSubmit.reset();
-} // end function createBook
+}
 
 
 /* -------------------- Code ajout de livre ------------------ */
 
-let myLibrary = [];
-let newBook;
 
 function Book(title, author, pages, isRead){
     this.title = title;
@@ -120,7 +109,6 @@ function addBook(e){
     e.preventDefault();
     addBookToLibrary();
     createBook(myLibrary);
-    log(myLibrary)
 }
 
 function toogleRead(){
@@ -128,23 +116,9 @@ function toogleRead(){
         this.classList.remove('read');
         this.classList.add('notread');
         this.innerText = `NOT READ YET`;
-        log('CONTAIN READ');
     }else{
         this.classList.remove('notread');
         this.classList.add('read');
         this.innerText = `READ`;
-        log('CONTAIN NOT READ');
     }
 }
-
-
-/*  bookInfo.parentNode.removeChild(bookInfo); */
-
-    /* --- je supprime l'élement de la node avec bookInfo.parentNode.removeChild(bookInfo); */
-
-    /**
-     * j'attribut à chaque élément book ajouter un data-set qui va s'iterrer ?
-     * 
-     * Quand je veux delete.
-     *          je cherche l'index du tableau myLibrary dont le dataset est égale et je le supprime/     myLibrary.splice(bookInfo.dataset.index,1);
-     */
