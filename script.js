@@ -10,21 +10,30 @@ const inputAuthor = document.querySelector('#author');
 const inputPages = document.querySelector('#pages');
 const checkbox = document.querySelector('input[type=checkbox]');
 
+
+/*
+
 let myLibrary = [];
-let newBook;
+let newBook; */
 
 /*---------------------------------------------------------------------------------------------------------------
                                                 AddEvent listener
 -----------------------------------------------------------------------------------------------------------------*/
+/*
+
 addBookModal.addEventListener('click', openModal);
 closeModalBtn.addEventListener('click', closeModal);
 formSubmit.addEventListener('submit', addBook);
 window.addEventListener('click', clickOutside);
 
+*/
+
+
+
 /*---------------------------------------------------------------------------------------------------------------
                                                 functions
 -----------------------------------------------------------------------------------------------------------------*/
-
+/*
 function openModal(){
     modal.style.display = 'block';
     modal.style.transition = 'all 0.5sec ease-in';
@@ -85,9 +94,11 @@ function createBook(book){
    formSubmit.reset();
 }
 
+*/
 
 /* -------------------- Code ajout de livre ------------------ */
 
+/*
 
 function Book(title, author, pages, isRead){
     this.title = title;
@@ -121,4 +132,63 @@ function toogleRead(){
         this.classList.add('read');
         this.innerText = `READ`;
     }
+}
+
+*/
+
+/*--------------------------------------------------Refactor all the code-------------------------------------------------*/
+
+const main = document.querySelector('main');
+let myLibrary = [];
+
+main.addEventListener('click', (event) => {
+    if(event.target.classList.contains('button')){
+        openModal();
+    }
+})
+
+formSubmit.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const newBook = new Book(inputTitle.value, inputAuthor.value, inputPages.value, checkbox.value);
+    addBookToLibrary(newBook);
+    UIcreateBook(newBook);
+});
+
+
+
+
+class Book{
+    constructor(title, author, pages){
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.isRead = false;
+    }
+}
+
+
+function openModal(){
+    modal.style.display = 'block';
+    modal.style.transition = 'all 0.5sec ease-in';
+}
+
+
+function addBookToLibrary(book){
+    myLibrary.push(book);
+}
+
+function UIcreateBook(book){
+    const note = `
+        <div class='note'>
+            <p>Title : ${book.title}</p>
+            <p>Author : ${book.author}</p>
+            <p>Pages : ${book.pages}</p>
+            <button class='read'>READ</button>
+            <button class='remove'>DELETE</button>
+        </div>
+    `;
+
+    const position = 'beforeend';
+    bookscontainer.insertAdjacentHTML(position, note);
 }
